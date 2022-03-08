@@ -1,0 +1,15 @@
+# For info on getting the latest rdme version and obtaining your API_DEFINITION_ID,
+# see our docs: https://docs.readme.com/docs/rdme#example-syncing-an-openapi-definition
+name: Sync OAS to ReadMe
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: readmeio/rdme@6.5.0
+        with:
+          rdme: openapi swagger-v1/swagger-v1.yaml --key={{ README_IO_API_KEY }} --id={{ README_API_PAYMENT_REQUEST_ID }}
