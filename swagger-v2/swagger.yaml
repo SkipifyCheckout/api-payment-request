@@ -1,13 +1,17 @@
 openapi: 3.0.0
 info:
-  title: Payment Request API
+  title: Payment Request API (V2)
   description: |
     Payment Request API used to manage payment requests and orders - part of the GoCart Pay By Link product offering.
+
+    This is the version 2.x of the Payment Request API.
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 2.0.0
 servers:
+- url: https://virtserver.swaggerhub.com/GoCartPay/gocart-payment-request-api/2.0.0
+  description: SwaggerHub API Auto Mocking
 - url: https://virtserver.swaggerhub.com/GoCartPay/gocart-payments-api/2.0.0
   description: SwaggerHub API Auto Mocking
 - url: https://api-staging.gocartpay.com/v2
