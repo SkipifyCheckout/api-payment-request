@@ -1,0 +1,446 @@
+openapi: 3.0.0
+info:
+  description: |
+    Payment Request API used to manage payment requests and orders - part of the GoCart Pay By Link product offering.
+    
+    This is the version 2.x of the Payment Request API.
+  version: 2.0.0
+  title: Payment Request API (V2)
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+tags:
+  - name: Payment Requests
+    description: |
+      APIs used to manage RESTful operations on payment requests.
+paths:
+  /payment-requests:
+    get:
+      tags:
+        - Payment Requests
+      summary: Retrieves the paginated list of payment requests
+      description: |
+        Retrieves the paginated list of a merchant's payment requests.
+        
+        A valid **HMAC** is required to access this endpoint.
+      parameters:
+        - $ref: 'https://api.swaggerhub.com/domains/GoCartPay/gocart-core-domain/1.0.0#/components/parameters/Begin'
+        - $ref: 'https://api.swaggerhub.com/domains/GoCartPay/gocart-core-domain/1.0.0#/components/parameters/End'
+        - $ref: '#/components/parameters/MerchantPaymentRequestIdQueryParameter'
+        - $ref: 'https://api.swaggerhub.com/domains/GoCartPay/gocart-core-domain/1.0.0#/components/parameters/PageNumber'
+        - $ref: 'https://api.swaggerhub.com/domains/GoCartPay/gocart-core-domain/1.0.0#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentRequestsPagedResponse'
+        default:
+          description: |
+            Standard error response codes are returned by this service method.
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/GoCartPay/gocart-core-domain/1.0.0#/components/schemas/ExceptionResponse'
+                
+    post:
+      tags:
+        - Payment Requests
+      summary: Creates a new payment request
+      description: |
+        Creates a new payment request.
+        
+        A valid **HMAC** is required to access this endpoint.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequestBase'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentRequestSummary'
+          
+        default:
+          description: |
+            Standard error response codes are returned by this service method.
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/GoCartPay/gocart-core-domain/1.0.0#/components/schemas/ExceptionResponse'
+                
+  /payment-requests/{paymentRequestId}:
+    get:
+      tags:
+        - Payment Requests
+      summary: Retrieves a payment request's details
+      description: |
+        Gets the details for the specified payment request.
+        
+        A valid **JWT** or **HMAC** is required to access this endpoint.
+      parameters:
+        - $ref: '#/components/parameters/PaymentRequestIdPathParameter'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentRequestResponseBody'
+        default:
+          description: |
+            Standard error response codes are returned by this service method.
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/GoCartPay/gocart-core-domain/1.0.0#/components/schemas/ExceptionResponse'
+    put:
+      tags:
+        - Payment Requests
+      summary: Updates a payment request
+      description: |
+        Updates a payment request.
+        
+        A valid **HMAC** is required to access this endpoint.
+      parameters:
+        - $ref: '#/components/parameters/PaymentRequestIdPathParameter'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePaymentRequestRequestBody'
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/GoCartPay/gocart-core-domain/1.0.0#/components/responses/OK'
+        default:
+          description: |
+            Standard error response codes are returned by this service method.
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/GoCartPay/gocart-core-domain/1.0.0#/components/schemas/ExceptionResponse'
+  /payment-requests/{paymentRequestId}/invalidate:
+    put:
+      tags:
+        - Payment Requests
+      summary: Invalidates a payment request
+      description: |
+        Invalidates a payment request - it will no longer be available for customer payment.
+        
+        A valid **HMAC** is required to access this endpoint.
+      parameters:
+        - $ref: '#/components/parameters/PaymentRequestIdPathParameter'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - status
+              properties:
+                invalidateStatus:
+                  type: string
+                  nullable: false
+                  enum:
+                    - PaidOffPlatform
+                    - CancelledByMerchant
+      responses:
+        '200':
+          $ref: 'https://api.swaggerhub.com/domains/GoCartPay/gocart-core-domain/1.0.0#/components/responses/OK'
+        default:
+          description: |
+            Standard error response codes are returned by this service method.
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/GoCartPay/gocart-core-domain/1.0.0#/components/schemas/ExceptionResponse'
+
+####################
+# Compnents
+####################
+components:
+
+  ####################
+  # Schemas
+  ####################
+  schemas:
+    PaymentRequestsPagedResponse:
+      type: object
+      allOf:
+        - $ref: 'https://api.swaggerhub.com/domains/GoCartPay/gocart-core-domain/1.0.0#/components/schemas/PaginatedResponseBase'
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentRequestSummary'
+      additionalProperties: false
+      
+    PaymentRequestSummary:
+      type: object
+      properties:
+        url:
+          type: string
+          nullable: true
+          example: https://gocartpay.app/3MlZ4m5
+          description: |
+            This is the magic link that references the payment request. This URL should be shared with the customer(s) intended to make payment on the payment request.
+        merchantPaymentRequestId:
+          type: string
+          nullable: false
+          example: 0943894-34930-01
+          description: |
+            A merchant's internal identifier for the payment request that was sent as the MerchantPaymentRequestId field when the Payment Request was created. Often used as a means to correlate a merchant's system with GoCart's reference.
+        paymentRequestId:
+          type: string
+          format: uuid
+          nullable: false
+          example: dbde7ee4-a2bf-4b52-a14a-ac3b48bef9b4
+          description: | 
+            GoCart's unique identifier for the Payment Request
+        metadata:
+          type: array
+          nullable: true
+          description: |
+            You can use this parameter to attach key-value data (string, string) to your API call. We do not do anything with this data and simply repeat it back in the API response. The purpose of this parameter is to allow you to store additional, structured information to your Payment Request, such as unique identifiers that you can use internally. We allow for up to 10 keys, with names up to 40 characters and values up to 100 characters.
+            
+            You SHOULD NOT store sensitive PII/PCI data in these fields.
+          items:
+            $ref: '#/components/schemas/MetaData'
+      
+    UpdatePaymentRequestRequestBody:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/PaymentRequestBase'
+      additionalProperties: false
+    
+    PaymentRequestResponseBody:
+      type: object
+      allOf:
+        - $ref: 'https://api.swaggerhub.com/domains/GoCartPay/gocart-core-domain/1.0.0#/components/schemas/ResourceBase'
+        - $ref: '#/components/schemas/PaymentRequestBase'
+      properties:
+        status:
+          $ref: '#/components/schemas/PaymentRequestStatus'
+        total:
+          type: number
+          format: decimal
+          nullable: false
+          example: 150.81
+          description: |
+            The integer representation of the total amount that will or has been paid on the Payment Request
+        currencyCode:
+          type: string
+          nullable: false
+          example: USD
+        created:
+          type: string
+          format: date-time
+          nullable: false
+          example: '2022-01-01T15:30:00Z'
+          description: |
+            The date and time the payment request was created. Specified in ISO 8601 UTC format
+        modified:
+          type: string
+          format: date-time
+          nullable: false
+          example: '2022-01-01T15:30:00Z'
+          description: |
+            The date and time the payment request was last modified. Specified in ISO 8601 UTC format
+        orderId:
+          type: string
+          format: uuid
+          nullable: true
+          example: dbde7ee4-a2bf-4b52-a14a-ac3b48bef9b4
+          description: |
+            The GoCart orderId once an attempt to pay for the Payment Request has been made
+        paymentTimestamp:
+          type: string
+          format: date-time
+          nullable: true
+          example: '2022-01-01T15:30:00Z'
+          description: |
+            The date and time the payment request was paid for. Specified in ISO 8601 UTC format
+        hash:
+          type: string
+          nullable: false
+          example: b739e64a711ceda6744545df7b833183c52fa6dc2f15b8c237b117918cf4c885
+          description: |
+            The hashed representation computed from a payment request's properties. A new hash generated anytime one of a payment request's properties is updated
+      additionalProperties: false
+  
+    PaymentRequestBase:
+      type: object
+      required: 
+        - subtotal
+        - merchantPaymentRequestId
+      properties:
+        merchantPaymentRequestId:
+          type: string
+          nullable: false
+          example: 0943894-34930-01
+          description: |
+            A merchant's internal identifier for the payment request that was sent as the MerchantPaymentRequestId field when the Payment Request was created
+        customerEmail:
+          type: string
+          nullable: true
+          example: customer@gocartpay.com
+          description: |
+            This is the customer's email address. GoCart uses this field as an identifier to determine if the customer is registered with GoCart.
+        subtotal:
+          type: number
+          format: decimal
+          nullable: false
+          example: 122.57
+          description: |
+            This is the subtotal of the Payment Request
+        tip:
+          type: number
+          format: decimal
+          nullable: true
+          example: 10.00
+          description: |
+            This is the amount of tip for the Payment Request
+        tax:
+          type: number
+          format: decimal
+          nullable: true
+          example: 8.25
+          description: |
+            This is the amount of tax for the Payment Request
+        shipping:
+          type: number
+          format: decimal
+          nullable: true
+          example: 9.99
+          description: |
+            This is the amount of shipping for the Payment Request.
+        metadata:
+          type: array
+          nullable: true
+          description: |
+            You can use this parameter to attach key-value data (string, string) to your API call. We do not do anything with this data and simply repeat it back in the API response. The purpose of this parameter is to allow you to store additional, structured information to your Payment Request, such as unique identifiers that you can use internally. We allow for up to 10 keys, with names up to 40 characters and values up to 100 characters.
+            
+            You SHOULD NOT store sensitive PII/PCI data in these fields.
+          items:
+            $ref: '#/components/schemas/MetaData'
+        lineItems:
+          type: array
+          nullable: true
+          description: |
+            These are the individual items you would like to show the customer as a part of their checkout.
+            
+            When updating a payment request, all the previously registered line items will be removed and replaced with the entries maintained in this collection.
+          items:
+            $ref: '#/components/schemas/LineItemResponseBody'
+        expiration:
+          type: string
+          format: date-time
+          nullable: true
+          example: '2022-01-01T15:30:00Z'
+          description: |
+            This is an optional parameter you can use to set an expiry on the payment request. Specified in ISO 8601 UTC format
+      additionalProperties: false
+      
+    LineItemRequestBase:
+      type: object
+      required:
+        - sku
+      properties:
+        sku:
+          type: string
+          nullable: false
+          example: 'UGG-BB-PUR-06.'
+          description: |
+            This is a top-level product identifier and description of the item. It appears as a header in our Order Summary that your customer will see.
+        description:
+          type: string
+          nullable: true
+          example: 'Some wonderful boots that add style to your comfort.'
+          description: |
+            This is a sub-header description of the item. It appears under the Order Summary.
+        amount:
+          type: number
+          format: decimal
+          nullable: true
+          example: 122.57
+          description: |
+            This is the amount of the line item. If null, this will show a dash - this is useful for showing items that have been discounted to zero.
+        category:
+          type: string
+          nullable: true
+          example: 'Outdoor footwear'
+          description: |
+            This is used to group multiple line items into various categories such as different invoice numbers, different order numbers, etc.
+            
+    LineItemResponseBody:
+      type: object
+      allOf:
+        - $ref: 'https://api.swaggerhub.com/domains/GoCartPay/gocart-core-domain/1.0.0#/components/schemas/ResourceBase'
+        - $ref: '#/components/schemas/LineItemRequestBase'
+            
+    MetaData:
+      type: object
+      required: 
+        - key
+        - value
+      properties:
+        key:
+          type: string
+          example: 'SessionId'
+          description: |
+            The key name for the metadata element in the map.
+          nullable: false  
+        value:
+          type: string
+          example: 'c05c8387-bcb1-4276-9e06-e6e311af287b'
+          description: |
+            The key name for the metadata element in the map.
+          nullable: false  
+      
+    PaymentRequestStatus:
+      type: string
+      nullable: false
+      enum:
+        - Open
+        - PaidOffPlatform
+        - CancelledByMerchant
+        - PaidOnPlatform
+        - Expired
+        
+  ####################
+  # Parameters
+  ####################
+  parameters:
+    MerchantPaymentRequestIdQueryParameter:
+      name: merchantPaymentRequestId
+      in: query
+      required: false
+      description: |
+        The merchantPaymentRequestId that was specified when the Payment Request was created.
+      schema:
+        type: string
+    PaymentRequestIdPathParameter:
+      name: paymentRequestId
+      in: path
+      required: true
+      description: |
+        The unique identifier for the payment request in the context of GoCart.
+      schema:
+        type: string
+        format: uuid
+        example: 3f326510-8fb0-4565-9de1-a090aaa49ac2
+
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/GoCartPay/gocart-payment-request-api/2.0.0
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/GoCartPay/gocart-payments-api/2.0.0
+  - description: GoCart Staging Environment
+    url: https://api-staging.gocartpay.com/v2
+  - description: GoCart Production Environment
+    url: https://api.gocartpay.com/v2
