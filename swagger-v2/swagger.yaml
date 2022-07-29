@@ -12,12 +12,12 @@ info:
 servers:
 - url: https://virtserver.swaggerhub.com/GoCartPay/gocart-payment-request-api/2.0.0
   description: SwaggerHub API Auto Mocking
-- url: https://virtserver.swaggerhub.com/GoCartPay/gocart-payments-api/2.0.0
-  description: SwaggerHub API Auto Mocking
 - url: https://api-staging.gocartpay.com/v2
   description: GoCart Staging Environment
 - url: https://api.gocartpay.com/v2
   description: GoCart Production Environment
+- url: https://virtserver.swaggerhub.com/GoCartPay/gocart-payments-api/2.0.0
+  description: SwaggerHub API Auto Mocking
 tags:
 - name: Payment Requests
   description: |
