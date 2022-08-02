@@ -12,12 +12,12 @@ info:
 servers:
 - url: https://virtserver.swaggerhub.com/GoCartPay/gocart-payment-request-api/2.0.0
   description: SwaggerHub API Auto Mocking
-- url: https://virtserver.swaggerhub.com/GoCartPay/gocart-payments-api/2.0.0
-  description: SwaggerHub API Auto Mocking
 - url: https://api-staging.gocartpay.com/v2
   description: GoCart Staging Environment
 - url: https://api.gocartpay.com/v2
   description: GoCart Production Environment
+- url: https://virtserver.swaggerhub.com/GoCartPay/gocart-payments-api/2.0.0
+  description: SwaggerHub API Auto Mocking
 tags:
 - name: Payment Requests
   description: |
@@ -31,7 +31,7 @@ paths:
       description: |
         Retrieves the paginated list of a merchant's payment requests.
 
-        A valid **HMAC** is required to access this endpoint.
+        A valid **[MAC](https://docs.gocartpay.com/docs/api-authentication-hmac-3)** is required to access this endpoint.
       parameters:
       - name: begin
         in: query
@@ -102,7 +102,7 @@ paths:
       description: |
         Creates a new payment request.
 
-        A valid **HMAC** is required to access this endpoint.
+        A valid **[MAC](https://docs.gocartpay.com/docs/api-authentication-hmac-3)** is required to access this endpoint.
       requestBody:
         content:
           application/json:
@@ -130,7 +130,7 @@ paths:
       description: |
         Gets the details for the specified payment request.
 
-        A valid **JWT** or **HMAC** is required to access this endpoint.
+        A valid **JWT** or **[MAC](https://docs.gocartpay.com/docs/api-authentication-hmac-3)** is required to access this endpoint.
       parameters:
       - name: paymentRequestId
         in: path
@@ -164,7 +164,7 @@ paths:
       description: |
         Updates a payment request.
 
-        A valid **HMAC** is required to access this endpoint.
+        A valid **[MAC](https://docs.gocartpay.com/docs/api-authentication-hmac-3)** is required to access this endpoint.
       parameters:
       - name: paymentRequestId
         in: path
@@ -201,7 +201,7 @@ paths:
       description: |
         Invalidates a payment request - it will no longer be available for customer payment.
 
-        A valid **HMAC** is required to access this endpoint.
+        A valid **[MAC](https://docs.gocartpay.com/docs/api-authentication-hmac-3)** is required to access this endpoint.
       parameters:
       - name: paymentRequestId
         in: path
@@ -266,14 +266,10 @@ components:
           example: dbde7ee4-a2bf-4b52-a14a-ac3b48bef9b4
         metadata:
           type: array
-          description: "You can use this parameter to attach key-value data (string,\
-            \ string) to your API call. We do not do anything with this data and simply\
-            \ repeat it back in the API response. The purpose of this parameter is\
-            \ to allow you to store additional, structured information to your Payment\
-            \ Request, such as unique identifiers that you can use internally. We\
-            \ allow for up to 10 keys, with names up to 40 characters and values up\
-            \ to 100 characters.\n\nYou SHOULD NOT store sensitive PII/PCI data in\
-            \ these fields.\n"
+          description: |
+            You can use this parameter to attach key-value data (string, string) to your API call. We do not do anything with this data and simply repeat it back in the API response. The purpose of this parameter is to allow you to store additional, structured information to your Payment Request, such as unique identifiers that you can use internally. We allow for up to 10 keys, with names up to 40 characters and values up to 100 characters.
+
+            You SHOULD NOT store sensitive PII/PCI data in these fields.
           nullable: true
           items:
             $ref: '#/components/schemas/MetaData'
@@ -384,23 +380,19 @@ components:
           example: 9.99
         metadata:
           type: array
-          description: "You can use this parameter to attach key-value data (string,\
-            \ string) to your API call. We do not do anything with this data and simply\
-            \ repeat it back in the API response. The purpose of this parameter is\
-            \ to allow you to store additional, structured information to your Payment\
-            \ Request, such as unique identifiers that you can use internally. We\
-            \ allow for up to 10 keys, with names up to 40 characters and values up\
-            \ to 100 characters.\n\nYou SHOULD NOT store sensitive PII/PCI data in\
-            \ these fields.\n"
+          description: |
+            You can use this parameter to attach key-value data (string, string) to your API call. We do not do anything with this data and simply repeat it back in the API response. The purpose of this parameter is to allow you to store additional, structured information to your Payment Request, such as unique identifiers that you can use internally. We allow for up to 10 keys, with names up to 40 characters and values up to 100 characters.
+
+            You SHOULD NOT store sensitive PII/PCI data in these fields.
           nullable: true
           items:
             $ref: '#/components/schemas/MetaData'
         lineItems:
           type: array
-          description: "These are the individual items you would like to show the\
-            \ customer as a part of their checkout.\n\nWhen updating a payment request,\
-            \ all the previously registered line items will be removed and replaced\
-            \ with the entries maintained in this collection.\n"
+          description: |
+            These are the individual items you would like to show the customer as a part of their checkout.
+
+            When updating a payment request, all the previously registered line items will be removed and replaced with the entries maintained in this collection.
           nullable: true
           items:
             $ref: '#/components/schemas/LineItemResponseBody'
@@ -431,16 +423,15 @@ components:
           example: Some wonderful boots that add style to your comfort.
         amount:
           type: number
-          description: "This is the amount of the line item. If null, this will show\
-            \ a dash - this is useful for showing items that have been discounted\
-            \ to zero.\n"
+          description: |
+            This is the amount of the line item. If null, this will show a dash - this is useful for showing items that have been discounted to zero.
           format: decimal
           nullable: true
           example: 122.57
         category:
           type: string
-          description: "This is used to group multiple line items into various categories\
-            \ such as different invoice numbers, different order numbers, etc.\n"
+          description: |
+            This is used to group multiple line items into various categories such as different invoice numbers, different order numbers, etc.
           nullable: true
           example: Outdoor footwear
     LineItemResponseBody:
