@@ -11,8 +11,8 @@ jobs:
       - uses: readmeio/rdme@6.5.0
         with:
           rdme: openapi swagger-v1/swagger.yaml --key=${{ secrets.README_IO_API_KEY }} --id=${{ secrets.README_API_V1_DEFINITION_ID }}
-      - uses: readmeio/rdme@6.5.0
-        with:
-          rdme: openapi swagger-v2/swagger.yaml --key=${{ secrets.README_IO_API_KEY }} --id=${{ secrets.README_API_V2_DEFINITION_ID }}
+#       - uses: readmeio/rdme@6.5.0
+#         with:
+#           rdme: openapi swagger-v2/swagger.yaml --key=${{ secrets.README_IO_API_KEY }} --id=${{ secrets.README_API_V2_DEFINITION_ID }}
         
 
