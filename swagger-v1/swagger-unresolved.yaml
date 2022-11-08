@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   description: |
-    Payment Request API used to manage payment requests and orders - part of the GoCart Pay By Link product offering.
+    Payment Request API used to manage payment requests and orders - part of the Skipify Pay By Link product offering.
   version: 1.0.1
   title: Payment Request API
   license:
@@ -20,7 +20,7 @@ paths:
       description: |
         Retrieves the paginated list of a merchant's payment requests.
         
-        A valid **[MAC](https://docs.gocartpay.com/docs/api-authentication-mac)** is required to access this endpoint.
+        A valid **[MAC](https://docs.skipify.com/docs/api-authentication-mac)** is required to access this endpoint.
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/GoCartPay/gocart-core-domain/1.0.0#/components/parameters/Begin'
         - $ref: 'https://api.swaggerhub.com/domains/GoCartPay/gocart-core-domain/1.0.0#/components/parameters/End'
@@ -49,7 +49,7 @@ paths:
       description: |
         Creates a new payment request.
         
-        A valid **[MAC](https://docs.gocartpay.com/docs/api-authentication-mac)** is required to access this endpoint.
+        A valid **[MAC](https://docs.skipify.com/docs/api-authentication-mac)** is required to access this endpoint.
       requestBody:
         content:
           application/json:
@@ -79,7 +79,7 @@ paths:
       description: |
         Gets the details for the specified payment request.
         
-        A valid **JWT** or **[MAC](https://docs.gocartpay.com/docs/api-authentication-mac)** is required to access this endpoint.
+        A valid **JWT** or **[MAC](https://docs.skipify.com/docs/api-authentication-mac)** is required to access this endpoint.
       parameters:
         - $ref: '#/components/parameters/PaymentRequestIdPathParameter'
       responses:
@@ -108,7 +108,7 @@ paths:
       description: |
         Updates a payment request.
         
-        A valid **[MAC](https://docs.gocartpay.com/docs/api-authentication-mac)** is required to access this endpoint.
+        A valid **[MAC](https://docs.skipify.com/docs/api-authentication-mac)** is required to access this endpoint.
       parameters:
         - $ref: '#/components/parameters/PaymentRequestIdPathParameter'
       requestBody:
@@ -134,7 +134,7 @@ paths:
       description: |
         Invalidates a payment request - it will no longer be available for customer payment.
         
-        A valid **[MAC](https://docs.gocartpay.com/docs/api-authentication-mac)** is required to access this endpoint.
+        A valid **[MAC](https://docs.skipify.com/docs/api-authentication-mac)** is required to access this endpoint.
       parameters:
         - $ref: '#/components/parameters/PaymentRequestIdPathParameter'
       requestBody:
@@ -196,14 +196,14 @@ components:
           nullable: false
           example: 0943894-34930-01
           description: |
-            A merchant's internal identifier for the payment request that was sent as the MerchantPaymentRequestId field when the Payment Request was created. Often used as a means to correlate a merchant's system with GoCart's reference.
+            A merchant's internal identifier for the payment request that was sent as the MerchantPaymentRequestId field when the Payment Request was created. Often used as a means to correlate a merchant's system with Skipify's reference.
         paymentRequestId:
           type: string
           format: uuid
           nullable: false
           example: dbde7ee4-a2bf-4b52-a14a-ac3b48bef9b4
           description: | 
-            GoCart's unique identifier for the Payment Request
+            Skipify's unique identifier for the Payment Request
         metadata:
           type: string
           nullable: true
@@ -232,7 +232,7 @@ components:
           nullable: false
           example: dbde7ee4-a2bf-4b52-a14a-ac3b48bef9b4
           description: | 
-            GoCart's unique identifier for the Payment Request
+            Skipify's unique identifier for the Payment Request
         status:
           $ref: '#/components/schemas/PaymentRequestStatus'
         total:
@@ -265,7 +265,7 @@ components:
           nullable: true
           example: dbde7ee4-a2bf-4b52-a14a-ac3b48bef9b4
           description: |
-            The GoCart orderId once an attempt to pay for the Payment Request has been made
+            The Skipify orderId once an attempt to pay for the Payment Request has been made
         paymentTimestamp:
           type: string
           format: date-time
@@ -298,7 +298,7 @@ components:
           nullable: true
           example: customer@gocartpay.com
           description: |
-            This is the customer's email address. GoCart uses this field as an identifier to determine if the customer is registered with GoCart.
+            This is the customer's email address. Skipify uses this field as an identifier to determine if the customer is registered with Skipify.
         subtotal:
           type: integer
           nullable: false
@@ -386,7 +386,7 @@ components:
           nullable: false
           example: dbde7ee4-a2bf-4b52-a14a-ac3b48bef9b40
           description: |
-            Internal GoCart identifier for the line item
+            Internal Skipify identifier for the line item
       additionalProperties: false
             
     MetaData:
@@ -457,7 +457,7 @@ components:
       in: path
       required: true
       description: |
-        The unique identifier for the payment request in the context of GoCart.
+        The unique identifier for the payment request in the context of Skipify.
       schema:
         type: string
         format: uuid
