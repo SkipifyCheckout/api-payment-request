@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: Payment Request API
   description: |
-    Payment Request API used to manage payment requests and orders - part of the GoCart Pay By Link product offering.
+    Payment Request API used to manage payment requests and orders - part of the Skipify Pay By Link product offering.
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
@@ -29,7 +29,7 @@ paths:
       description: |
         Retrieves the paginated list of a merchant's payment requests.
 
-        A valid **[MAC](https://docs.gocartpay.com/docs/api-authentication-mac)** is required to access this endpoint.
+        A valid **[MAC](https://docs.skipify.com/docs/api-authentication-mac)** is required to access this endpoint.
       parameters:
       - name: begin
         in: query
@@ -100,7 +100,7 @@ paths:
       description: |
         Creates a new payment request.
 
-        A valid **[MAC](https://docs.gocartpay.com/docs/api-authentication-mac)** is required to access this endpoint.
+        A valid **[MAC](https://docs.skipify.com/docs/api-authentication-mac)** is required to access this endpoint.
       requestBody:
         content:
           application/json:
@@ -128,12 +128,12 @@ paths:
       description: |
         Gets the details for the specified payment request.
 
-        A valid **JWT** or **[MAC](https://docs.gocartpay.com/docs/api-authentication-mac)** is required to access this endpoint.
+        A valid **JWT** or **[MAC](https://docs.skipify.com/docs/api-authentication-mac)** is required to access this endpoint.
       parameters:
       - name: paymentRequestId
         in: path
         description: |
-          The unique identifier for the payment request in the context of GoCart.
+          The unique identifier for the payment request in the context of Skipify.
         required: true
         style: simple
         explode: false
@@ -162,12 +162,12 @@ paths:
       description: |
         Updates a payment request.
 
-        A valid **[MAC](https://docs.gocartpay.com/docs/api-authentication-mac)** is required to access this endpoint.
+        A valid **[MAC](https://docs.skipify.com/docs/api-authentication-mac)** is required to access this endpoint.
       parameters:
       - name: paymentRequestId
         in: path
         description: |
-          The unique identifier for the payment request in the context of GoCart.
+          The unique identifier for the payment request in the context of Skipify.
         required: true
         style: simple
         explode: false
@@ -199,12 +199,12 @@ paths:
       description: |
         Invalidates a payment request - it will no longer be available for customer payment.
 
-        A valid **[MAC](https://docs.gocartpay.com/docs/api-authentication-mac)** is required to access this endpoint.
+        A valid **[MAC](https://docs.skipify.com/docs/api-authentication-mac)** is required to access this endpoint.
       parameters:
       - name: paymentRequestId
         in: path
         description: |
-          The unique identifier for the payment request in the context of GoCart.
+          The unique identifier for the payment request in the context of Skipify.
         required: true
         style: simple
         explode: false
@@ -252,13 +252,13 @@ components:
         merchantPaymentRequestId:
           type: string
           description: |
-            A merchant's internal identifier for the payment request that was sent as the MerchantPaymentRequestId field when the Payment Request was created. Often used as a means to correlate a merchant's system with GoCart's reference.
+            A merchant's internal identifier for the payment request that was sent as the MerchantPaymentRequestId field when the Payment Request was created. Often used as a means to correlate a merchant's system with Skipify's reference.
           nullable: false
           example: 0943894-34930-01
         paymentRequestId:
           type: string
           description: |
-            GoCart's unique identifier for the Payment Request
+            Skipify's unique identifier for the Payment Request
           format: uuid
           nullable: false
           example: dbde7ee4-a2bf-4b52-a14a-ac3b48bef9b4
@@ -283,7 +283,7 @@ components:
         paymentRequestId:
           type: string
           description: |
-            GoCart's unique identifier for the Payment Request
+            Skipify's unique identifier for the Payment Request
           format: uuid
           nullable: false
           example: dbde7ee4-a2bf-4b52-a14a-ac3b48bef9b4
@@ -316,7 +316,7 @@ components:
         orderId:
           type: string
           description: |
-            The GoCart orderId once an attempt to pay for the Payment Request has been made
+            The Skipify orderId once an attempt to pay for the Payment Request has been made
           format: uuid
           nullable: true
           example: dbde7ee4-a2bf-4b52-a14a-ac3b48bef9b4
@@ -351,7 +351,7 @@ components:
         customerEmail:
           type: string
           description: |
-            This is the customer's email address. GoCart uses this field as an identifier to determine if the customer is registered with GoCart.
+            This is the customer's email address. Skipify uses this field as an identifier to determine if the customer is registered with Skipify.
           nullable: true
           example: customer@gocartpay.com
         subtotal:
@@ -439,7 +439,7 @@ components:
         externalId:
           type: string
           description: |
-            Internal GoCart identifier for the line item
+            Internal Skipify identifier for the line item
           format: uuid
           nullable: false
           example: dbde7ee4-a2bf-4b52-a14a-c3b48bef9b40
@@ -597,7 +597,7 @@ components:
       name: paymentRequestId
       in: path
       description: |
-        The unique identifier for the payment request in the context of GoCart.
+        The unique identifier for the payment request in the context of Skipify.
       required: true
       style: simple
       explode: false
@@ -605,3 +605,46 @@ components:
         type: string
         format: uuid
         example: 3f326510-8fb0-4565-9de1-a090aaa49ac2
+    Begin:
+      name: begin
+      in: query
+      description: |
+        The minimum created date for records that will be returned. Specified in ISO 8601 UTC format.
+      required: false
+      schema:
+        type: string
+        format: date-time
+        default: 0001-01-01T00:00:00Z
+    End:
+      name: end
+      in: query
+      description: |
+        The maximum created date for records that will be returned. Specified in ISO 8601 UTC format.
+      required: false
+      schema:
+        type: string
+        format: date-time
+        default: 9999-12-31T23:59:59Z
+    PageNumber:
+      name: pageNumber
+      in: query
+      description: |
+        The page number to fetch
+      required: false
+      schema:
+        minimum: 1
+        type: integer
+        example: 1
+        default: 1
+    PageSize:
+      name: pageSize
+      in: query
+      description: |
+        The number of items per page
+      required: false
+      schema:
+        maximum: 50
+        minimum: 1
+        type: integer
+        example: 25
+        default: 25
