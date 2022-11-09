@@ -8,21 +8,9 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-<<<<<<< HEAD
   version: 2.0.2
 servers:
 - url: https://virtserver.swaggerhub.com/Skipify/payment-request-api/2.0.2
-=======
-<<<<<<< HEAD
-  version: 2.0.2
-servers:
-- url: https://virtserver.swaggerhub.com/Skipify/payment-request-api/2.0.2
-=======
-  version: 2.0.1
-servers:
-- url: https://virtserver.swaggerhub.com/Skipify/payment-request-api/2.0.1
->>>>>>> skipify-main
->>>>>>> skipify-main
   description: SwaggerHub API Auto Mocking
 tags:
 - name: Payment Requests
