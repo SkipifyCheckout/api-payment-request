@@ -50,7 +50,7 @@ paths:
       summary: Creates a new payment request
       description: |
         Creates a new payment request.
-        
+       
         A valid **[MAC](https://docs.skipify.com/docs/api-authentication-mac)** is required to access this endpoint.
       requestBody:
         content:
