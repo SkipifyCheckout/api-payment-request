@@ -4,7 +4,11 @@ info:
     Payment Request API used to manage payment requests and orders - part of the Skipify Pay By Link product offering.
     
     This is the version 2.x of the Payment Request API.
+<<<<<<< HEAD
+  version: 2.0.2
+=======
   version: 2.0.1
+>>>>>>> skipify-main
   title: Payment Request API (V2)
   license:
     name: Apache 2.0
@@ -50,7 +54,11 @@ paths:
       summary: Creates a new payment request
       description: |
         Creates a new payment request.
+<<<<<<< HEAD
+        
+=======
        
+>>>>>>> skipify-main
         A valid **[MAC](https://docs.skipify.com/docs/api-authentication-mac)** is required to access this endpoint.
       requestBody:
         content:
@@ -437,4 +445,8 @@ components:
 servers:
   # Added by API Auto Mocking Plugin
   - description: SwaggerHub API Auto Mocking
+<<<<<<< HEAD
+    url: https://virtserver.swaggerhub.com/Skipify/payment-request-api/2.0.2
+=======
     url: https://virtserver.swaggerhub.com/Skipify/payment-request-api/2.0.1
+>>>>>>> skipify-main
