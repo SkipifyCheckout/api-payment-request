@@ -22,7 +22,7 @@ paths:
       description: |
         Retrieves the paginated list of a merchant's payment requests.
         
-        A valid **[MAC](https://docs.skipify.com/docs/api-authentication-hmac-3)** is required to access this endpoint.
+        A valid **[MAC](https://docs.skipify.com/docs/api-authentication-mac)** is required to access this endpoint.
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/Skipify/skipify-core-domain/1.0.1#/components/parameters/Begin'
         - $ref: 'https://api.swaggerhub.com/domains/Skipify/skipify-core-domain/1.0.1#/components/parameters/End'
@@ -50,8 +50,8 @@ paths:
       summary: Creates a new payment request
       description: |
         Creates a new payment request.
-        
-        A valid **[MAC](https://docs.skipify.com/docs/api-authentication-hmac-3)** is required to access this endpoint.
+       
+        A valid **[MAC](https://docs.skipify.com/docs/api-authentication-mac)** is required to access this endpoint.
       requestBody:
         content:
           application/json:
@@ -81,7 +81,7 @@ paths:
       description: |
         Gets the details for the specified payment request.
         
-        A valid **JWT** or **[MAC](https://docs.skipify.com/docs/api-authentication-hmac-3)** is required to access this endpoint.
+        A valid **JWT** or **[MAC](https://docs.skipify.com/docs/api-authentication-mac)** is required to access this endpoint.
       parameters:
         - $ref: '#/components/parameters/PaymentRequestIdPathParameter'
       responses:
@@ -105,7 +105,7 @@ paths:
       description: |
         Updates a payment request.
         
-        A valid **[MAC](https://docs.skipify.com/docs/api-authentication-hmac-3)** is required to access this endpoint.
+        A valid **[MAC](https://docs.skipify.com/docs/api-authentication-mac)** is required to access this endpoint.
       parameters:
         - $ref: '#/components/parameters/PaymentRequestIdPathParameter'
       requestBody:
@@ -131,7 +131,7 @@ paths:
       description: |
         Invalidates a payment request - it will no longer be available for customer payment.
         
-        A valid **[MAC](https://docs.skipify.com/docs/api-authentication-hmac-3)** is required to access this endpoint.
+        A valid **[MAC](https://docs.skipify.com/docs/api-authentication-mac)** is required to access this endpoint.
       parameters:
         - $ref: '#/components/parameters/PaymentRequestIdPathParameter'
       requestBody:
