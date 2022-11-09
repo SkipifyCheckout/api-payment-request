@@ -1,10 +1,10 @@
 openapi: 3.0.0
 info:
   description: |
-    Payment Request API used to manage payment requests and orders - part of the GoCart Pay By Link product offering.
+    Payment Request API used to manage payment requests and orders - part of the Skipify Pay By Link product offering.
     
     This is the version 2.x of the Payment Request API.
-  version: 2.0.0
+  version: 2.0.1
   title: Payment Request API (V2)
   license:
     name: Apache 2.0
@@ -22,13 +22,13 @@ paths:
       description: |
         Retrieves the paginated list of a merchant's payment requests.
         
-        A valid **[MAC](https://docs.gocartpay.com/docs/api-authentication-hmac-3)** is required to access this endpoint.
+        A valid **[MAC](https://docs.skipify.com/docs/api-authentication-mac)** is required to access this endpoint.
       parameters:
-        - $ref: 'https://api.swaggerhub.com/domains/GoCartPay/gocart-core-domain/1.0.0#/components/parameters/Begin'
-        - $ref: 'https://api.swaggerhub.com/domains/GoCartPay/gocart-core-domain/1.0.0#/components/parameters/End'
+        - $ref: 'https://api.swaggerhub.com/domains/Skipify/skipify-core-domain/1.0.1#/components/parameters/Begin'
+        - $ref: 'https://api.swaggerhub.com/domains/Skipify/skipify-core-domain/1.0.1#/components/parameters/End'
         - $ref: '#/components/parameters/MerchantPaymentRequestIdQueryParameter'
-        - $ref: 'https://api.swaggerhub.com/domains/GoCartPay/gocart-core-domain/1.0.0#/components/parameters/PageNumber'
-        - $ref: 'https://api.swaggerhub.com/domains/GoCartPay/gocart-core-domain/1.0.0#/components/parameters/PageSize'
+        - $ref: 'https://api.swaggerhub.com/domains/Skipify/skipify-core-domain/1.0.1#/components/parameters/PageNumber'
+        - $ref: 'https://api.swaggerhub.com/domains/Skipify/skipify-core-domain/1.0.1#/components/parameters/PageSize'
       responses:
         '200':
           description: Success
@@ -42,7 +42,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: 'https://api.swaggerhub.com/domains/GoCartPay/gocart-core-domain/1.0.0#/components/schemas/ExceptionResponse'
+                $ref: 'https://api.swaggerhub.com/domains/Skipify/skipify-core-domain/1.0.1#/components/schemas/ExceptionResponse'
                 
     post:
       tags:
@@ -51,7 +51,7 @@ paths:
       description: |
         Creates a new payment request.
         
-        A valid **[MAC](https://docs.gocartpay.com/docs/api-authentication-hmac-3)** is required to access this endpoint.
+        A valid **[MAC](https://docs.skipify.com/docs/api-authentication-mac)** is required to access this endpoint.
       requestBody:
         content:
           application/json:
@@ -71,7 +71,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: 'https://api.swaggerhub.com/domains/GoCartPay/gocart-core-domain/1.0.0#/components/schemas/ExceptionResponse'
+                $ref: 'https://api.swaggerhub.com/domains/Skipify/skipify-core-domain/1.0.1#/components/schemas/ExceptionResponse'
                 
   /payment-requests/{paymentRequestId}:
     get:
@@ -81,7 +81,7 @@ paths:
       description: |
         Gets the details for the specified payment request.
         
-        A valid **JWT** or **[MAC](https://docs.gocartpay.com/docs/api-authentication-hmac-3)** is required to access this endpoint.
+        A valid **JWT** or **[MAC](https://docs.skipify.com/docs/api-authentication-mac)** is required to access this endpoint.
       parameters:
         - $ref: '#/components/parameters/PaymentRequestIdPathParameter'
       responses:
@@ -97,7 +97,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: 'https://api.swaggerhub.com/domains/GoCartPay/gocart-core-domain/1.0.0#/components/schemas/ExceptionResponse'
+                $ref: 'https://api.swaggerhub.com/domains/Skipify/skipify-core-domain/1.0.1#/components/schemas/ExceptionResponse'
     put:
       tags:
         - Payment Requests
@@ -105,7 +105,7 @@ paths:
       description: |
         Updates a payment request.
         
-        A valid **[MAC](https://docs.gocartpay.com/docs/api-authentication-hmac-3)** is required to access this endpoint.
+        A valid **[MAC](https://docs.skipify.com/docs/api-authentication-mac)** is required to access this endpoint.
       parameters:
         - $ref: '#/components/parameters/PaymentRequestIdPathParameter'
       requestBody:
@@ -115,14 +115,14 @@ paths:
               $ref: '#/components/schemas/UpdatePaymentRequestRequestBody'
       responses:
         '200':
-          $ref: 'https://api.swaggerhub.com/domains/GoCartPay/gocart-core-domain/1.0.0#/components/responses/OK'
+          $ref: 'https://api.swaggerhub.com/domains/Skipify/skipify-core-domain/1.0.1#/components/responses/OK'
         default:
           description: |
             Standard error response codes are returned by this service method.
           content:
             application/json:
               schema:
-                $ref: 'https://api.swaggerhub.com/domains/GoCartPay/gocart-core-domain/1.0.0#/components/schemas/ExceptionResponse'
+                $ref: 'https://api.swaggerhub.com/domains/Skipify/skipify-core-domain/1.0.1#/components/schemas/ExceptionResponse'
   /payment-requests/{paymentRequestId}/invalidate:
     put:
       tags:
@@ -131,7 +131,7 @@ paths:
       description: |
         Invalidates a payment request - it will no longer be available for customer payment.
         
-        A valid **[MAC](https://docs.gocartpay.com/docs/api-authentication-hmac-3)** is required to access this endpoint.
+        A valid **[MAC](https://docs.skipify.com/docs/api-authentication-mac)** is required to access this endpoint.
       parameters:
         - $ref: '#/components/parameters/PaymentRequestIdPathParameter'
       requestBody:
@@ -150,14 +150,14 @@ paths:
                     - CancelledByMerchant
       responses:
         '200':
-          $ref: 'https://api.swaggerhub.com/domains/GoCartPay/gocart-core-domain/1.0.0#/components/responses/OK'
+          $ref: 'https://api.swaggerhub.com/domains/Skipify/skipify-core-domain/1.0.1#/components/responses/OK'
         default:
           description: |
             Standard error response codes are returned by this service method.
           content:
             application/json:
               schema:
-                $ref: 'https://api.swaggerhub.com/domains/GoCartPay/gocart-core-domain/1.0.0#/components/schemas/ExceptionResponse'
+                $ref: 'https://api.swaggerhub.com/domains/Skipify/skipify-core-domain/1.0.1#/components/schemas/ExceptionResponse'
 
 ####################
 # Compnents
@@ -171,7 +171,7 @@ components:
     PaymentRequestsPagedResponse:
       type: object
       allOf:
-        - $ref: 'https://api.swaggerhub.com/domains/GoCartPay/gocart-core-domain/1.0.0#/components/schemas/PaginatedResponseBase'
+        - $ref: 'https://api.swaggerhub.com/domains/Skipify/skipify-core-domain/1.0.1#/components/schemas/PaginatedResponseBase'
       properties:
         data:
           type: array
@@ -185,7 +185,7 @@ components:
         url:
           type: string
           nullable: true
-          example: https://gocartpay.app/3MlZ4m5
+          example: https://skipify.app/3MlZ4m5
           description: |
             This is the magic link that references the payment request. This URL should be shared with the customer(s) intended to make payment on the payment request.
         merchantPaymentRequestId:
@@ -193,14 +193,14 @@ components:
           nullable: false
           example: 0943894-34930-01
           description: |
-            A merchant's internal identifier for the payment request that was sent as the MerchantPaymentRequestId field when the Payment Request was created. Often used as a means to correlate a merchant's system with GoCart's reference.
+            A merchant's internal identifier for the payment request that was sent as the MerchantPaymentRequestId field when the Payment Request was created. Often used as a means to correlate a merchant's system with Skipify's reference.
         paymentRequestId:
           type: string
           format: uuid
           nullable: false
           example: dbde7ee4-a2bf-4b52-a14a-ac3b48bef9b4
           description: | 
-            GoCart's unique identifier for the Payment Request
+            Skipify's unique identifier for the Payment Request
         metadata:
           type: array
           nullable: true
@@ -220,7 +220,7 @@ components:
     PaymentRequestResponseBody:
       type: object
       allOf:
-        - $ref: 'https://api.swaggerhub.com/domains/GoCartPay/gocart-core-domain/1.0.0#/components/schemas/ResourceBase'
+        - $ref: 'https://api.swaggerhub.com/domains/Skipify/skipify-core-domain/1.0.1#/components/schemas/ResourceBase'
         - $ref: '#/components/schemas/PaymentRequestBase'
       properties:
         status:
@@ -256,7 +256,7 @@ components:
           nullable: true
           example: dbde7ee4-a2bf-4b52-a14a-ac3b48bef9b4
           description: |
-            The GoCart orderId once an attempt to pay for the Payment Request has been made
+            The Skipify orderId once an attempt to pay for the Payment Request has been made
         paymentTimestamp:
           type: string
           format: date-time
@@ -287,9 +287,9 @@ components:
         customerEmail:
           type: string
           nullable: true
-          example: customer@gocartpay.com
+          example: customer@skipify.com
           description: |
-            This is the customer's email address. GoCart uses this field as an identifier to determine if the customer is registered with GoCart.
+            This is the customer's email address. Skipify uses this field as an identifier to determine if the customer is registered with Skipify.
         subtotal:
           type: number
           format: decimal
@@ -379,7 +379,7 @@ components:
     LineItemResponseBody:
       type: object
       allOf:
-        - $ref: 'https://api.swaggerhub.com/domains/GoCartPay/gocart-core-domain/1.0.0#/components/schemas/ResourceBase'
+        - $ref: 'https://api.swaggerhub.com/domains/Skipify/skipify-core-domain/1.0.1#/components/schemas/ResourceBase'
         - $ref: '#/components/schemas/LineItemRequestBase'
             
     MetaData:
@@ -428,7 +428,7 @@ components:
       in: path
       required: true
       description: |
-        The unique identifier for the payment request in the context of GoCart.
+        The unique identifier for the payment request in the context of Skipify.
       schema:
         type: string
         format: uuid
@@ -437,10 +437,4 @@ components:
 servers:
   # Added by API Auto Mocking Plugin
   - description: SwaggerHub API Auto Mocking
-    url: https://virtserver.swaggerhub.com/GoCartPay/gocart-payment-request-api/2.0.0
-  - description: GoCart Staging Environment
-    url: https://api-staging.gocartpay.com/v2
-  - description: GoCart Production Environment
-    url: https://api.gocartpay.com/v2
-  - description: SwaggerHub API Auto Mocking
-    url: https://virtserver.swaggerhub.com/GoCartPay/gocart-payments-api/2.0.0
+    url: https://virtserver.swaggerhub.com/Skipify/payment-request-api/2.0.1
