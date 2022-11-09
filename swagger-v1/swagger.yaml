@@ -8,14 +8,8 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.1
 servers:
-- url: https://virtserver.swaggerhub.com/GoCartPay/gocart-payment-request-api/1.0.1
+- url: https://virtserver.swaggerhub.com/Skipify/payment-request-api/1.0.1
   description: SwaggerHub API Auto Mocking
-- url: https://virtserver.swaggerhub.com/GoCartPay/gocart-payments-api/1.0.0
-  description: SwaggerHub API Auto Mocking
-- url: https://api-staging.gocartpay.com
-  description: GoCart Staging Environment
-- url: https://api.gocartpay.com/
-  description: GoCart Production Environment
 tags:
 - name: Payment Requests
   description: |
@@ -508,7 +502,7 @@ components:
           $ref: '#/components/schemas/Links'
       additionalProperties: false
       description: |
-        Base object for all GoCart paginated GET operations.
+        Base object for all Skipify paginated GET operations.
     PaginatedDescription:
       type: object
       properties:
