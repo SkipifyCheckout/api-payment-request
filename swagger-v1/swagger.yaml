@@ -242,7 +242,7 @@ components:
           description: |
             This is the magic link that references the payment request. This URL should be shared with the customer(s) intended to make payment on the payment request.
           nullable: true
-          example: https://gocartpay.app/3MlZ4m5
+          example: https://skipify.app/3MlZ4m5
         merchantPaymentRequestId:
           type: string
           description: |
@@ -347,7 +347,7 @@ components:
           description: |
             This is the customer's email address. Skipify uses this field as an identifier to determine if the customer is registered with Skipify.
           nullable: true
-          example: customer@gocartpay.com
+          example: customer@skipify.com
         subtotal:
           type: integer
           description: |
